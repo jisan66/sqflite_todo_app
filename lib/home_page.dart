@@ -14,24 +14,31 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
   final _focusNode = FocusNode();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const Center(
+      body: Center(
         child: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              InputTextField(icons: Icons.person, labelText: 'Name',),
-              SizedBox(height: 16,),
-              InputTextField(icons: Icons.phone, labelText: 'Phone',),
-              SizedBox(height: 16,),
-              InputTextField(icons: Icons.home, labelText: 'Address',maxLine: 3,),
-              SizedBox(height: 24,),
-              CustomButton(text: 'Submit', height: 42,)
-            ],
+          padding: const EdgeInsets.all(8.0),
+          child: Form(
+            key: formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                InputTextField(icons: Icons.person, labelText: 'Name',textEditingController: nameController,),
+                const SizedBox(height: 16,),
+                InputTextField(icons: Icons.phone, labelText: 'Phone',textEditingController: phoneController,),
+                const SizedBox(height: 16,),
+                InputTextField(icons: Icons.home, labelText: 'Address',maxLine: 3,textEditingController: addressController,),
+                const SizedBox(height: 24,),
+                const CustomButton(text: 'Submit', height: 42,)
+              ],
+            ),
           ),
         ),
       ),

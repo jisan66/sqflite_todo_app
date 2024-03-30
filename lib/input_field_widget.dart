@@ -5,17 +5,19 @@ class InputTextField extends StatelessWidget {
   final String labelText;
   final int? maxLine;
   final FocusNode? focusNode;
+  final TextEditingController textEditingController;
 
   const InputTextField(
       {super.key,
       required this.icons,
       required this.labelText,
       this.maxLine,
-      this.focusNode});
+      this.focusNode, required this.textEditingController});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: textEditingController,
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
 
