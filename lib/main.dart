@@ -1,4 +1,6 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import 'home_page.dart';
 
@@ -12,13 +14,24 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        primarySwatch: Colors.blue,
+        primaryColor: Colors.blue,
+        cardColor: Colors.blue,
+        appBarTheme: const AppBarTheme(
+            titleTextStyle: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.w600, color: Colors.white),
+            iconTheme: IconThemeData(color: Colors.white),
+            backgroundColor: Colors.blue),
         useMaterial3: true,
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          foregroundColor: Colors.white,
+          backgroundColor: Colors.blue
+        )
       ),
       home: const MyHomePage(),
     );
   }
 }
-
