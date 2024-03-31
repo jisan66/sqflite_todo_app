@@ -12,25 +12,20 @@ class InputTextField extends StatelessWidget {
       required this.icons,
       required this.labelText,
       this.maxLine,
-      this.focusNode, required this.textEditingController});
+      this.focusNode,
+      required this.textEditingController});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: textEditingController,
-      onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-
-        if (!currentFocus.hasPrimaryFocus) {
-          currentFocus.unfocus();
-        }
-      },
       // focusNode: focusNode,
       maxLines: maxLine == 0 ? 1 : maxLine,
       // onTapOutside: KeyboardListener.(event) => e,
       decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(4),
+          contentPadding: const EdgeInsets.all(4),
           labelText: labelText,
+          labelStyle: const TextStyle(color: Colors.blue),
           disabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(25),
               borderSide: const BorderSide(color: Colors.red)),
@@ -40,7 +35,13 @@ class InputTextField extends StatelessWidget {
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(25),
               borderSide: const BorderSide(color: Colors.blueAccent)),
-          prefixIcon: Icon(icons)),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(25),
+              borderSide: const BorderSide(color: Colors.blueAccent)),
+          prefixIcon: Icon(
+            icons,
+            color: Colors.blue,
+          )),
     );
   }
 }

@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.blue
         )
       ),
-      home: const MyHomePage(),
+      home: MyHomePage(),
     );
   }
 }
