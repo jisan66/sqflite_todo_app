@@ -10,9 +10,12 @@ class DatabaseHelper {
 
   static Future<Database> getDB() async {
     return openDatabase(join(await getDatabasesPath(), dbName),
-        onCreate: (db, version) async => await db.execute(
-            "CREATE TABLE User(id INTEGER PRIMARY KEY, name TEXT NOT NULL, phone TEXT NOT NULL, address TEXT NOT NULL);"),
-        version: _version);
+        onCreate: (db, version) async {
+          await db.execute(
+              "CREATE TABLE UserCourse(id INTEGER PRIMARY KEY, course_name TEXT NULL, course_code TEXT NOT NULL, course_code TEXT NOT NULL);");
+          await db.execute(
+              "CREATE TABLE User(id INTEGER PRIMARY KEY, name TEXT NOT NULL, phone TEXT NOT NULL, address TEXT NOT NULL);");
+        }, version: _version);
   }
 
   ///==============================================Adding User========================================================
@@ -21,6 +24,12 @@ class DatabaseHelper {
     final db = await getDB();
     return await db.insert("User", user.toJson(),
         conflictAlgorithm: ConflictAlgorithm.replace);
+  }
+
+  static Future<int> addCourses(Course course) async {
+    final db = await getDB();
+    return await db.insert("UserCourse", course.toJson(),
+        conflictAlgorithm: ConflictAlgorithm.replace)
   }
 
   ///============================================Updating User=======================================================
