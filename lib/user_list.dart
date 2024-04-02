@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sqflite_todo/course_screen.dart';
 import 'package:sqflite_todo/database_helper.dart';
 import 'package:sqflite_todo/home_page.dart';
 import 'package:sqflite_todo/model.dart';
@@ -39,6 +40,10 @@ class _UserListScreenState extends State<UserListScreen> {
                   itemCount: snapshot.data?.length ?? 0,
                   itemBuilder: (context, index) => Card(
                     child: InkWell(
+                      onTap: (){
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => CourseScreen(userId: snapshot.data![index].id!,)));
+                      },
                       onDoubleTap: (){
                         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=> MyHomePage(user: snapshot.data![index],)), (route) => true);
                       },
