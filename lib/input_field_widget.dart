@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class InputTextField extends StatelessWidget {
-  final IconData icons;
+  final IconData? icons;
   final String labelText;
   final int? maxLine;
   final FocusNode? focusNode;
@@ -9,7 +9,7 @@ class InputTextField extends StatelessWidget {
 
   const InputTextField(
       {super.key,
-      required this.icons,
+      this.icons,
       required this.labelText,
       this.maxLine,
       this.focusNode,

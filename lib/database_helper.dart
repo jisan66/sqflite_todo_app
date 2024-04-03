@@ -13,7 +13,7 @@ class DatabaseHelper {
     return openDatabase(join(await getDatabasesPath(), dbName),
         onCreate: (db, version) async {
       await db.execute(
-          "CREATE TABLE UserCourse(id INTEGER PRIMARY KEY,  user_id INTEGER, name TEXT course_title TEXT NOT NULL, course_code TEXT NOT NULL, course_credit REAL);");
+          "CREATE TABLE UserCourse(id INTEGER PRIMARY KEY, user_id INTEGER NOT NULL, course_title TEXT NOT NULL, course_code TEXT NOT NULL, course_credit REAL);");
       await db.execute(
           "CREATE TABLE User(id INTEGER PRIMARY KEY, name TEXT NOT NULL, phone TEXT NOT NULL, address TEXT NOT NULL);");
     }, version: _version);
@@ -29,9 +29,9 @@ class DatabaseHelper {
 
   static Future<int> addCourses(UserCourse course, int userId) async {
     final db = await getDB();
-    Map<String, dynamic> courseData = course.toJson();
-    courseData['user_id'] = userId;
-    return await db.insert("UserCourse", courseData,
+    // Map<String, dynamic> courseData = course.toJson();
+    // courseData['user_id'] = userId;
+    return await db.insert("UserCourse", course.toJson(),
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
