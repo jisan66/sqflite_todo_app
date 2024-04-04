@@ -7,7 +7,7 @@ class UserCourse {
 
   UserCourse(
       {this.id,
-        required this.userId,
+      required this.userId,
       required this.courseTitle,
       required this.courseCode,
       required this.courseCredit});
@@ -24,7 +24,7 @@ class UserCourse {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'user_id' : userId,
+      'user_id': userId,
       'course_title': courseTitle,
       'course_code': courseCode,
       'course_credit': courseCredit

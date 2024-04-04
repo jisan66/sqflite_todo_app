@@ -12,11 +12,11 @@ class DatabaseHelper {
   static Future<Database> getDB() async {
     return openDatabase(join(await getDatabasesPath(), dbName),
         onCreate: (db, version) async {
-      await db.execute(
-          "CREATE TABLE UserCourse(id INTEGER PRIMARY KEY, user_id INTEGER NOT NULL, course_title TEXT NOT NULL, course_code TEXT NOT NULL, course_credit REAL);");
-      await db.execute(
-          "CREATE TABLE User(id INTEGER PRIMARY KEY, name TEXT NOT NULL, phone TEXT NOT NULL, address TEXT NOT NULL);");
-    }, version: _version);
+          await db.execute(
+              "CREATE TABLE User(id INTEGER PRIMARY KEY, name TEXT NOT NULL, phone TEXT NOT NULL, address TEXT NOT NULL);");
+          await db.execute(
+              "CREATE TABLE UserCourse(id INTEGER PRIMARY KEY, user_id INTEGER NOT NULL, course_title TEXT NOT NULL, course_code TEXT NOT NULL, course_credit REAL NOT NULL);");
+        }, version: _version);
   }
 
   ///==============================================Adding User & Courses========================================================
@@ -27,10 +27,8 @@ class DatabaseHelper {
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
-  static Future<int> addCourses(UserCourse course, int userId) async {
+  static Future<int> addCourses(UserCourse course) async {
     final db = await getDB();
-    // Map<String, dynamic> courseData = course.toJson();
-    // courseData['user_id'] = userId;
     return await db.insert("UserCourse", course.toJson(),
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
@@ -48,8 +46,8 @@ class DatabaseHelper {
   static Future<int> updateUserCourse(UserCourse course, int userId) async {
     final db = await getDB();
     return await db.update('UserCourse', course.toJson(),
-        where: 'user_id=?',
-        whereArgs: [userId],
+        where: 'id=?',
+        whereArgs: [course.id],
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
@@ -63,7 +61,7 @@ class DatabaseHelper {
   static Future<int> deleteUserCourse(UserCourse course, int userId) async {
     final db = await getDB();
     return await db
-        .delete("UserCourse", where: "user_id=?", whereArgs: [userId]);
+        .delete("UserCourse", where: "id=?", whereArgs: [course.id]);
   }
 
   ///===========================================Get all the users and courses====================================================
